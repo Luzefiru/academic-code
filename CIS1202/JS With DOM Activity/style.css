@@ -45,3 +45,10 @@ img[class*="fluid"] {
     width: 3rem;
     box-shadow: 2px 3px 2px #0f0b24;
 }
+
+.text-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1rem;
+}
