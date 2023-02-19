@@ -26,8 +26,9 @@ textArea.addEventListener('keyup', (e) => {
 
 // when you click the append button, set the appendArea's text to its current + whatever is in textArea
 btnTextAppend.addEventListener('click', (e) => {
-    console.log(appendArea)
-    appendArea.textContent = appendArea.textContent + ` ${textArea.value}`;
+    if (textArea.value.length < 1001) {
+        appendArea.textContent = appendArea.textContent + ` ${textArea.value}`;
+    }
 })
 
 // replaces all the occurences of textToFind with textToReplace using the replaceAll method which returns a string to be assigned to the node's textContent property
