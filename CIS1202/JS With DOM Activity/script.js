@@ -8,14 +8,14 @@ btnShuffleImage.addEventListener("click", (e) => {
     headerImage.setAttribute('src', `./res/banner-${imgNumber % 5 + 1}.jpg`);
 })
 
-textArea.addEventListener('keydown', (e) => {
-    if (textArea.value.length >= 10) {
+textArea.addEventListener('keyup', (e) => {
+    if (textArea.value.length > 1000) {
         textArea.classList.add('is-invalid');
     }
 })
 
 textArea.addEventListener('keyup', (e) => {
-    if (textArea.value.length < 10) {
+    if (textArea.value.length < 1001) {
         textArea.classList.remove('is-invalid');
     }
 })

@@ -51,4 +51,11 @@ img[class*="fluid"] {
     justify-content: space-between;
     align-items: stretch;
     gap: 1rem;
+    position: relative;
+}
+
+.is-invalid::before {
+    content: "please";
+    color: red;
+    font-size: 10000px;
 }
