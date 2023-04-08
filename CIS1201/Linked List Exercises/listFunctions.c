@@ -109,10 +109,18 @@ void insertSorted(LIST head, studrec recordToInsert) {
     // stop when the currentNode's ID is greater than the recordToInsert
     // therefore, the previousNode should connect to the recordToInsert, which connects to currentNode
 
-    // initialize a node to be inserted containing recordToInsert
+    // initialize a node to be inserted
     struct node *newNode = (struct node *)malloc(sizeof(struct node));
-    newNode->stud = recordToInsert;
 
-    previousNode->link = newNode;
-    newNode->link = currentNode;
+    if (previousNode == NULL) {
+        newNode->stud = head->stud;
+        newNode->link = head->link;
+
+        head->link = newNode;
+        head->stud = recordToInsert;
+    } else {
+        newNode->stud = recordToInsert;
+        previousNode->link = newNode;
+        newNode->link = currentNode;
+    }
 }

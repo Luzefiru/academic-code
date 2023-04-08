@@ -23,7 +23,7 @@ int main(void)
     // printf("findStudent(head, \"I DON'T EXIST\");\n>>> "); displayStudent(findStudent(head, "I DON'T EXIST"));
 
     /* Exercise 2 */
-    studrec rec4 = {"003", {"Thirdie", "McQueen", 'D'}, "BSCS", 4};
+    studrec rec4 = {"000", {"Thirdie", "McQueen", 'D'}, "BSCS", 4};
     insertSorted(head, rec4);
     displayList(head);
 }
