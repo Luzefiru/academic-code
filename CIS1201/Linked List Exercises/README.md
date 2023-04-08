@@ -6,16 +6,20 @@
 
 # Running `make.sh`
 
-You need to allow the file to be executable via the `chmod` command in Unix. Otherwise, you can just use the `sh` command in Windows to run it.
+You need to allow the file to be executable via the `chmod` command in Unix.
 
 ```bash
 # enable the execution bit on the current user
 chmod make.sh u+x
 
 # run the pseudo makefile
-./make.sh
+make.sh
+```
 
-# for Windows users
+Alternatively, you can just do:
+
+```bash
+# read and execute make.sh directly
 sh make.sh
 ```
 
