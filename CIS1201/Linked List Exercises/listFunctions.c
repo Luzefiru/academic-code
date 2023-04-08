@@ -101,7 +101,7 @@ void insertSorted(LIST head, studrec recordToInsert) {
     for (
         // start from the head & track the previous node
         currentNode = head, previousNode = NULL;
-        // while the next node is not NULL && the current node's ID is less than the 
+        // while the currentNode is not NULL && the current node's ID is less than the 
         currentNode != NULL && strcmp(currentNode->stud.ID, recordToInsert.ID) < 0; 
         // advance the current node
         previousNode = currentNode, currentNode = currentNode->link
@@ -112,10 +112,12 @@ void insertSorted(LIST head, studrec recordToInsert) {
     // initialize a node to be inserted
     struct node *newNode = (struct node *)malloc(sizeof(struct node));
 
+    // handle unshifting elements to the starting node
     if (previousNode == NULL) {
+        // make the newNode become head
         newNode->stud = head->stud;
         newNode->link = head->link;
-
+        // make head become the recordToInsert, pointing to the old head, newNode
         head->link = newNode;
         head->stud = recordToInsert;
     } else {
