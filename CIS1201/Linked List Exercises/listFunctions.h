@@ -18,8 +18,14 @@ typedef struct node {
     struct node *link;
 } *LIST; // Definition of the list
 
+/* helper functions */
 void displayStudent(studrec rec);
 void displayList(LIST head);
+void pushNode(LIST head, studrec record);
+
+/* exercise functions */
 studrec findStudent(LIST head, const char *idToSearch);
 studrec optimizedFindStudent(LIST head, const char *idToSearch);
 void insertSorted(LIST head, studrec recordToInsert);
+int deleteNodeByCourse(LIST head, const char *targetCourse);
+int deleteAll(LIST head, const char *targetCourse);

@@ -42,3 +42,8 @@ You should get a `main.exe` file you can then execute with:
 
 > Given a SORTED list and a student record, the function will insert the student record at its appropriate position in the list which is sorted in ascending order according to ID.
 > Note: There should be No break or exit statement.
+
+`deleteAll()`
+
+> Write the code of the function deleteAll(). Given a list and a course, the function will delete all student records bearing the given course and return to the calling function the total number of nodes deleted from the list.
+> Note: Function should have 1 return statement ONLY, no break or exit statement.
