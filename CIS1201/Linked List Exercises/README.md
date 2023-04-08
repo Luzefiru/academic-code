@@ -6,7 +6,7 @@
 
 # Running `make.sh`
 
-You need to allow the file to be executable via the `chmod` command in Unix:
+You need to allow the file to be executable via the `chmod` command in Unix. Otherwise, you can just use the `sh` command in Windows to run it.
 
 ```bash
 # enable the execution bit on the current user
@@ -14,6 +14,9 @@ chmod make.sh u+x
 
 # run the pseudo makefile
 ./make.sh
+
+# for Windows users
+sh make.sh
 ```
 
 You should get a `main.exe` file you can then execute with:
