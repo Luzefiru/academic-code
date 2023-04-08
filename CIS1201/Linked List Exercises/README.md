@@ -13,7 +13,7 @@ You need to allow the file to be executable via the `chmod` command in Unix.
 chmod make.sh u+x
 
 # run the pseudo makefile
-make.sh
+./make.sh
 ```
 
 Alternatively, you can just do:
