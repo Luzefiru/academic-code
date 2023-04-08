@@ -102,7 +102,7 @@ void insertSorted(LIST head, studrec recordToInsert) {
         // start from the head & track the previous node
         currentNode = head, previousNode = NULL;
         // while the next node is not NULL && the current node's ID is less than the 
-        currentNode->link != NULL && strcmp(currentNode->stud.ID, recordToInsert.ID) < 0; 
+        currentNode != NULL && strcmp(currentNode->stud.ID, recordToInsert.ID) < 0; 
         // advance the current node
         previousNode = currentNode, currentNode = currentNode->link
     ) {}

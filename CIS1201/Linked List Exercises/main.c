@@ -23,8 +23,12 @@ int main(void)
     // printf("findStudent(head, \"I DON'T EXIST\");\n>>> "); displayStudent(findStudent(head, "I DON'T EXIST"));
 
     /* Exercise 2 */
-    studrec rec4 = {"000", {"Thirdie", "McQueen", 'D'}, "BSCS", 4};
-    insertSorted(head, rec4);
+    studrec start = {"000", {"Genesis", "Manson", 'G'}, "BSCS", 2};
+    studrec middle = {"003", {"Thirdie", "McQueen", 'D'}, "BSCS", 4};
+    studrec end = {"999", {"Endie", "Enderman", 'E'}, "BSCS", 1};
+    insertSorted(head, start);
+    insertSorted(head, middle);
+    insertSorted(head, end);
     displayList(head);
 }
 
