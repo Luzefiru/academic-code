@@ -29,6 +29,14 @@ void displayStudent(studrec rec)
     printf(ANSI_COLOR_RESET);
 }
 
+void displayList(LIST head) {
+    struct node *currentNode;
+    for (currentNode = head; currentNode != NULL; currentNode = currentNode->link) {
+        displayStudent(currentNode->stud);
+    }
+    putchar('\n');
+}
+
 /**
  * @brief Attempts to match & return a {studrec} with a corresponding {idToSearch}.
  * 
@@ -88,5 +96,23 @@ studrec optimizedFindStudent(LIST head, const char *idToSearch)
  * @param recordToInsert - the {studrec} to insert into the {LIST}
  */
 void insertSorted(LIST head, studrec recordToInsert) {
-    
+    struct node *currentNode;
+    struct node *previousNode;
+    for (
+        // start from the head & track the previous node
+        currentNode = head, previousNode = NULL;
+        // while the next node is not NULL && the current node's ID is less than the 
+        currentNode->link != NULL && strcmp(currentNode->stud.ID, recordToInsert.ID) < 0; 
+        // advance the current node
+        previousNode = currentNode, currentNode = currentNode->link
+    ) {}
+    // stop when the currentNode's ID is greater than the recordToInsert
+    // therefore, the previousNode should connect to the recordToInsert, which connects to currentNode
+
+    // initialize a node to be inserted containing recordToInsert
+    struct node *newNode = (struct node *)malloc(sizeof(struct node));
+    newNode->stud = recordToInsert;
+
+    previousNode->link = newNode;
+    newNode->link = currentNode;
 }
