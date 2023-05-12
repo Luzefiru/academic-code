@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
     // handles any file pointer errors
     if (fp == NULL) {
         fprintf(stderr, "cat: %s: No such file or directory", argv[1]);
+        exit(EXIT_FAILURE);
     }
 
     // happy path
