@@ -16,7 +16,7 @@ function App() {
       <div className={showAddTodo ? '' : 'hidden'}>
         <AddTodoDialog addTodo={addTodo} toggleModal={toggleModal} />
       </div>
-      <div className="pt-16 px-32 bg-slate-950 h-[100vh] gap-4">
+      <div className="px-8 pt-12 lg:px-32">
         <div className="flex items-center">
           <h1 className="text-3xl font-bold text-slate-100">Todo List</h1>
           <button
@@ -31,7 +31,7 @@ function App() {
           </button>
         </div>
 
-        <div className="p-6 pl-0 border-2 rounded border-slate-500">
+        <div className="grid gap-4 mt-4">
           {todos.map((todo) => (
             <Todo todo={todo} deleteTodo={deleteTodo} updateTodo={updateTodo} />
           ))}
