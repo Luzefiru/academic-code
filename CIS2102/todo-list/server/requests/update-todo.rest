@@ -1,0 +1,7 @@
+PATCH http://127.0.0.1:3000/todo/3
+Content-Type: application/json
+
+{
+  "title": "New World",
+  "content": "AAAA todo item"
+}

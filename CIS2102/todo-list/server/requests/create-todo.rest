@@ -1,0 +1,7 @@
+POST http://127.0.0.1:3000/todo
+Content-Type: application/json 
+
+{
+  "title": "Hello World",
+  "content": "I'm a new todo item"
+}
