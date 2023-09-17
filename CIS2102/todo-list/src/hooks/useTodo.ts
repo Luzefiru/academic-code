@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import todoService from '../helpers/todoService';
 
 export interface Todo {
   id: number;
@@ -9,25 +10,31 @@ export interface Todo {
 const useTodo = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const addTodo = (title: string, content: string) => {
-    const newTodo: Todo = { content, title, id: todos.length };
+  useEffect(() => {
+    const initializeTodos = async () => {
+      const todos = await todoService.getTodos();
+      setTodos(todos);
+    };
+    initializeTodos();
+  }, []);
+
+  const addTodo = async (title: string, content: string) => {
+    const newTodo: Todo = await todoService.addTodo(title, content);
     setTodos((todos) => [...todos, newTodo]);
   };
 
-  const updateTodo = (id: number, title: string, content: string) => {
+  const updateTodo = async (id: number, title: string, content: string) => {
+    await todoService.updateTodo(id, title, content);
     const updatedTodo: Todo = { id, title, content };
     setTodos((todos) => todos.map((t) => (t.id === id ? updatedTodo : t)));
   };
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = async (id: number) => {
+    await todoService.deleteTodo(id);
     setTodos((todos) => todos.filter((t) => t.id !== id));
   };
 
-  const clearTodos = () => {
-    setTodos([]);
-  };
-
-  return { todos, addTodo, updateTodo, deleteTodo, clearTodos };
+  return { todos, addTodo, updateTodo, deleteTodo };
 };
 
 export default useTodo;
