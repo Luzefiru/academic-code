@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { Todo } from '../hooks/useTodo';
 import EditTodoModal from './EditTodoModal';
 import Icon from '@mdi/react';
@@ -12,6 +12,8 @@ interface Props {
 }
 
 export default function TodoItem({ todo, deleteTodo, updateTodo }: Props) {
+  const navigate = useNavigate();
+
   const [isHovering, setIsHovering] = useState(false);
   const [showEditTodo, setEditTodo] = useState(false);
 
@@ -31,6 +33,10 @@ export default function TodoItem({ todo, deleteTodo, updateTodo }: Props) {
     toggleModal();
   };
 
+  const handleClick = () => {
+    navigate(`/todo/${todo.id}`);
+  };
+
   return (
     <>
       <div className={showEditTodo ? '' : 'hidden'}>
@@ -41,6 +47,7 @@ export default function TodoItem({ todo, deleteTodo, updateTodo }: Props) {
         />
       </div>
       <div
+        onClick={handleClick}
         onMouseEnter={showButtons}
         onMouseLeave={showButtons}
         className="relative grid gap-2 px-4 py-4 rounded-lg bg-slate-200 hover:scale-[1.005] hover:shadow hover:shadow-slate-400 transition-all cursor-pointer"
