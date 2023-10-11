@@ -16,50 +16,51 @@ typedef struct {
 
 void displayHeader();
 void displayStudent(Studtype s);
-void readFile();
+void readAppendFile(void);
 
-int main(void) {
-  // Nametype fn = {"Ian", 'L', "de Jesus"};
-  // Studtype ian = {fn, 123, "BSCS", 2};
-  // displayStudent(ian);
-
-  char fileToRead[64];
-
-  printf("Enter a file name : ");
-  scanf("%s", &fileToRead);
-
-  displayHeader();
-
-  readFile(fileToRead);
+int main(void) {  
+  readAppendFile();
 }
 
 /**
- * @brief This function reads the student records in the given file 1 record at a time and calls displayStudent() to display all the fields in the given record. Note that the name of the file will be inputted by the user from the keyboard.
+ * @brief This function writes at least 5 student records to the file whose name will be inputted by the user. 
  * 
+ * @param arr 
+ * @param fileToWriteTo 
  */
-void readFile(const char *fileToRead) {
-  FILE *fp = fopen(fileToRead, "rb");
+void readAppendFile(void) {
+  Studtype s;
+  printf("ID: ");
+  scanf(" %d", &s.ID);
+  printf("Last Name: ");
+  scanf(" %s", &s.name.LN);
+  printf("First Name: ");
+  scanf(" %s", &s.name.FN);
+  printf("Middle Initial: ");
+  scanf(" %c", &s.name.MI);
+  printf("Course: ");
+  scanf(" %s", &s.course);
+  printf("Year Level: ");
+  scanf(" %d", &s.yrLevel);
 
+  displayHeader();
+  displayStudent(s);
+
+  char fileToWriteTo[64];
+  printf("Where do you want to append the record? ");
+  scanf("%s", fileToWriteTo);
+
+  FILE *fp = fopen(fileToWriteTo, "ab");
   if (fp == NULL) {
     fclose(fp);
-    printf("\n'%s' does not exist", fileToRead);
+    puts("Unexpected error");
+    exit(EXIT_FAILURE);
   } else {
-    Studtype current;
-    int count = 0;
-    while (fread(&current, sizeof(Studtype), 1, fp) != 0) {
-      printf("%d", current.ID);
-      displayStudent(current);
-      count++;
-
-      if (count % 20 == 0) {
-        printf("\nPress any key to continue...\n");
-        fflush(stdin);
-        getchar();
-      }
-    }
+    fwrite(&s, sizeof(Studtype), 1, fp);
   }
-
+  fclose(fp);
 }
+
 
 /**
  * @brief This function will display all the field members of the given Studtype record in 1 horizontal line. After every 20 records displayed, call the OS command “Pause” to halt/stop until any key is pressed in the keyboard.
@@ -95,4 +96,5 @@ void displayHeader() {
   printf("%-3s", "==");
   printf("%-8s", "======");
   printf("%5s", "====");
+  printf("\n");
 }
