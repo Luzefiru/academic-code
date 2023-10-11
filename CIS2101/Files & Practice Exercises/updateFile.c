@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct {
   char FN[24];
@@ -16,36 +17,50 @@ typedef struct {
 
 void displayHeader();
 void displayStudent(Studtype s);
-void readFile();
+void updateFile(const char *oldCourse, const char *newCourse);
 
 int main(void) {
-  char fileToRead[64];
-
-  printf("Enter a file name : ");
-  scanf("%s", &fileToRead);
-
-  readFile(fileToRead);
+  const char *oldCourse = "BSCS", *newCourse = "HAHA";
+  
+  updateFile(oldCourse, newCourse);
 }
 
 /**
- * @brief This function reads the student records in the given file 1 record at a time and calls displayStudent() to display all the fields in the given record. Note that the name of the file will be inputted by the user from the keyboard.
+ * @brief Given an old course and new course as parameters, the function will read the contents of a file 1 record at a time and whose name will be inputted by the user. 
  * 
  */
-void readFile(const char *fileToRead) {
-  FILE *fp = fopen(fileToRead, "rb");
+void updateFile(const char *oldCourse, const char *newCourse) {
+  const char *fileNameToUpdate = "test.dat";
+  
+  FILE *fp = fopen(fileNameToUpdate, "rb");
+  FILE *newFile = fopen("placeholder.dat", "wb");
 
-  if (fp == NULL) {
-    fclose(fp);
-    printf("\n'%s' does not exist", fileToRead);
+  if (fp == NULL || newFile == NULL) {
+    printf("Unexpected error");
+    fclose(fp); 
+    fclose(newFile);
+    exit(EXIT_FAILURE);
   } else {
-    displayHeader();
-    Studtype current;
+    Studtype buffer;
+    // read all data into another file with newCourse
+    while (fread(&buffer, sizeof(Studtype), 1, fp) != 0) {
+        if (strcmp(oldCourse, buffer.course) == 0) {
+          strcpy(buffer.course, newCourse);
+        }
 
-    while (fread(&current, sizeof(Studtype), 1, fp) != 0) {
-      displayStudent(current);
+        fwrite(&buffer, sizeof(Studtype), 1, newFile);
     }
-  }
+
+    // close file pointers
+    fclose(fp);
+    fclose(newFile);
+
+    // delete old file * rename new file to old file's name
+    remove(fileNameToUpdate);
+    rename("placeholder.dat", fileNameToUpdate);
+  }  
 }
+
 
 /**
  * @brief This function will display all the field members of the given Studtype record in 1 horizontal line. After every 20 records displayed, call the OS command “Pause” to halt/stop until any key is pressed in the keyboard.
@@ -53,13 +68,13 @@ void readFile(const char *fileToRead) {
  * @param s 
  */
 void displayStudent(Studtype s) {
-  printf("\n");
   printf("%-10d", s.ID);
   printf("%-16s", s.name.LN);
   printf("%-24s", s.name.FN);
   printf("%-3c", s.name.MI);
   printf("%-8s", s.course);
   printf("%5d", s.yrLevel);
+  printf("\n");
 }
 
 /**
