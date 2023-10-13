@@ -16,6 +16,7 @@ void updateNodeValue(List *L, char oldValue, char newValue);
 void insertFirst(List *L, char value);
 void insertLast(List *L, char value);
 void insertSorted(List *L, char value);
+void insertSortedUnique(List *L, char value);
 void bubbleSort(List L);
 
 int main(void) {
@@ -59,10 +60,9 @@ int main(void) {
 
   bubbleSort(L);
 
-  insertSorted(&L, 'F');
-  insertSorted(&L, 'S');
-  insertSorted(&L, 'A');
-  insertSorted(&L, 'N');
+  insertSortedUnique(&L, 'A');
+  insertSortedUnique(&L, 'F');
+  insertSortedUnique(&L, 'S');
 
   displayListPPN(&L);
 
@@ -110,6 +110,18 @@ void insertSorted(List *L, char value) {
   newNode->elem = value;
   newNode->link = *trav;
   *trav = newNode;
+}
+
+void insertSortedUnique(List *L, char value) {
+  List *trav;
+  for (trav = L; *trav != NULL && value > (*trav)->elem; trav = &(*trav)->link) {}
+
+  if (*trav == NULL || value != (*trav)->elem) {
+    List newNode = (ctype *)malloc(sizeof(ctype));
+    newNode->elem = value;
+    newNode->link = *trav;
+    *trav = newNode;
+  }
 }
 
 void deleteNodeIndex(List *L, int targetIndex) {
