@@ -1,7 +1,7 @@
 // Libraries
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Hooks
-import useAuth from './context/useAuth';
+import useAuth from './hooks/useAuth';
 // Components
 import Protected from './components/Protected';
 // Pages
