@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // Hooks
 import useAuth from './hooks/useAuth';
 // Components
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Protected from './components/Protected';
 // Pages
 import Home from './pages/Home';
@@ -15,18 +17,22 @@ function App() {
   const { currentUser } = useAuth();
 
   return (
-    <>
+    <div className="flex flex-col h-[100lvh]">
       <Router>
-        <Routes>
-          <Route path="/" element={<Protected currentUser={currentUser} />}>
-            <Route index element={<Home />} />
-          </Route>
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="*" element={<_404 />} />
-        </Routes>
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<Protected currentUser={currentUser} />}>
+              <Route index element={<Home />} />
+            </Route>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="*" element={<_404 />} />
+          </Routes>
+        </main>
+        <Footer />
       </Router>
-    </>
+    </div>
   );
 }
 
