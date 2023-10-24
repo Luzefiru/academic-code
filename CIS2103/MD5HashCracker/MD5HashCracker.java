@@ -39,7 +39,7 @@ public class MD5HashCracker {
         });
 
         Thread webLookupThread = new Thread(() -> {
-            String url = "https://raw.githubusercontent.com/Luzefiru/academic-code/main/CIS2103/md5/wordlist.txt"; // Online wordlist raw file
+            String url = "https://raw.githubusercontent.com/Luzefiru/academic-code/main/CIS2103/MD5HashCracker/wordlist.txt"; // Online wordlist raw file
             if (checkUrl(url)) {
                 List<String> words = fetchWordsFromUrl(url);
                 for (String word : words) {
