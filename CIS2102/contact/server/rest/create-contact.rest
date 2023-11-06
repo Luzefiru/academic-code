@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/contacts
+Content-Type: application/json
+
+{
+    "student_id": "22101295",
+    "name": "Christian de Jesus",
+    "age": "20",
+    "contact": "09455722882",
+    "course": "BS PS"
+}
