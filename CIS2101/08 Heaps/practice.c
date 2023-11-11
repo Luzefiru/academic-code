@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #define MAX 10
+#define NULL_VALUE -1
 
 /*
 A Complete Binary Tree that is a Partially-Ordered Tree where
@@ -46,12 +47,42 @@ void insert(Heap h, int value) {
 }
 
 /**
- * @brief 
+ * @brief Deletes the smallest value of the Priority Queue and returns it.
+ * 
+ * Pseodocode (if not empty):
+ * 1. Replace the root with the last index's node.
+ * 2. Decrement `lastIndex`
+ * 3. Starting from the root node
+ *   - swap the value with its children until the next children are greater than its value or NULL_VALUE
+ *     - by "children", we have to check both left `(p+1)/2` & right `(p+2)/2`
  * 
  * @param h 
  * @return int 
  */
-int deleteMin(Heap h);
+int deleteMin(Heap h) {
+  int deletedElem = h->node[0]; // Save to return later
+
+  // Swap root and last node
+  h->node[0] = h->node[h->lastIndex];
+  h->node[h->lastIndex] = deletedElem;
+
+  // Decrement
+  h->lastIndex--;
+
+  // Start reordering to satisfy Partially-Ordered property
+  int currentIndex = 0;
+  while (currentIndex <= h->lastIndex &&  // if not a null or inaccessible index
+         h->node[currentIndex] > h->node[(currentIndex+1)/2] || // if greater than left child
+         h->node[currentIndex] > h->node[(currentIndex+2)/2] // if greater than right child
+  ) {
+    // if greater than left child
+    if (h->node[currentIndex] > h->node[(currentIndex+1)/2]) {
+
+    }
+  } 
+
+  return deletedElem;
+}
 
 
 Heap init(void);
@@ -74,6 +105,9 @@ int main(void) {
  */
 Heap init(void) {
   Heap newHeap = malloc(sizeof(struct Heap));
+  for (int i = 0; i < MAX; i++) {
+    newHeap->node[i] = NULL_VALUE;
+  }
   newHeap->lastIndex = -1;
 }
 
