@@ -104,12 +104,12 @@ void insertFirst(List *L, char value) {
  * @param value The character value to be inserted.
  */
 void insertLast(List *L, char value) {
+  List *trav;
+  for (trav = L; *trav != NULL; trav = &(*trav)->link) {}
+
   List newNode = (List)malloc(sizeof(ctype));
   newNode->data = value;
   newNode->link = NULL;
-
-  List *trav;
-  for (trav = L; *trav != NULL; trav = &(*trav)->link) {}
 
   *trav = newNode;
 }

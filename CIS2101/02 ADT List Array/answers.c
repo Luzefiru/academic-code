@@ -6,7 +6,7 @@
 typedef enum {TRUE, FALSE} Boolean;
 
 typedef struct {
-  char elements[SIZE];
+  char Elem[SIZE];
   int count;
 } List;
 
@@ -61,39 +61,64 @@ void displayList(List L) {
   int x;
   printf("[");
   for (x = 0; x < L.count; x++) {
-    x < L.count - 1 ? printf("%c, ", L.elements[x]) : printf("%c", L.elements[x]);
+    x < L.count - 1
+    ? printf("%c, ", L.Elem[x])
+    : printf("%c", L.Elem[x]);
   }
   puts("]");
 }
 
+/**
+ * @brief Find the index of the first occurrence of a target element in the list.
+ * 
+ * @return int The index of the first occurrence of the target element, or -1 if not found.
+ */
 int findElem(List L, char target) {
   int x;
-  for (x = 0; x < L.count && L.elements[x] != target; x++) {}
+
+  for (x = 0; x < L.count && L.Elem[x] != target; x++) {}
 
   if (x != L.count) {
     return x;
+  } else {
+    return -1;
   }
 }
 
+/**
+ * @brief Insert a new element at the beginning of the list.
+ * 
+ * If the list is not at its maximum capacity, existing elements are shifted
+ * to the right to make space for the new element.
+ */
 void insertFirst(List *L, char newElem) {
   if (L->count < SIZE) {
     int x;
+
     for (x = L->count; x > 0; x--) {
-      L->elements[x] = L->elements[x-1];
+      L->Elem[x] = L->Elem[x-1];
     }
-    L->elements[0] = newElem;
+
+    L->Elem[0] = newElem;
     L->count++;
   }
 }
 
+/**
+ * @brief Delete the first occurrence of a specified element from the list.
+ * 
+ * The remaining elements are shifted to fill the gap.
+ */
 void deleteElem(List *L, char targetElem) {
   int x;
-  for (x = 0; x < L->count && L->elements[x] != targetElem; x++) {}
+
+  for (x = 0; x < L->count && L->Elem[x] != targetElem; x++) {}
 
   if (x < L->count) {
     for (; x < L->count - 1; x++) {
-      L->elements[x] = L->elements[x + 1];
+      L->Elem[x] = L->Elem[x + 1];
     }
+
     L->count--;
   }
 }
