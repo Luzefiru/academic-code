@@ -17,6 +17,35 @@ typedef struct Heap {
 } *Heap;
 
 /**
+ * @brief Recursively heapifies a subtree to satisfy the POT property of a Heap.
+ * 
+ * @param h the Heap
+ * @param index the index of the subtree's root
+ */
+void heapify(Heap h, int index) {
+  int smallest = index;
+  int leftChild = index * 2 + 1;
+  int rightChild = index * 2 + 2;
+
+  if (leftChild <= h->lastIndex && h->node[leftChild] < h->node[smallest]) {
+    smallest = leftChild;
+  }
+
+  if (rightChild <= h->lastIndex && h->node[rightChild] < h->node[smallest]) {
+    smallest = rightChild;
+  }
+
+  if (smallest != index) {
+    // swap the smallest child with the parent root node
+    int tmp = h->node[index];
+    h->node[index] = h->node[smallest];
+    h->node[smallest] = tmp;
+    // the smallest index is now the larger root, so we recursively traverse downwards
+    heapify(h, smallest);
+  }
+}
+
+/**
  * @brief Inserts `value` into a Heap `h`, in its partially-ordered position.
  * 
  * Pseudocode (if not full):
@@ -70,16 +99,7 @@ int deleteMin(Heap h) {
   h->lastIndex--;
 
   // Start reordering to satisfy Partially-Ordered property
-  int currentIndex = 0;
-  while (currentIndex <= h->lastIndex &&  // if not a null or inaccessible index
-         h->node[currentIndex] > h->node[(currentIndex+1)/2] || // if greater than left child
-         h->node[currentIndex] > h->node[(currentIndex+2)/2] // if greater than right child
-  ) {
-    // if greater than left child
-    if (h->node[currentIndex] > h->node[(currentIndex+1)/2]) {
-
-    }
-  } 
+  heapify(h, 0);
 
   return deletedElem;
 }
@@ -95,6 +115,8 @@ int main(void) {
   insert(heap, 5);
   insert(heap, 4);
   insert(heap, 3);
+  displayHeap(heap);
+  deleteMin(heap);
   displayHeap(heap);
 }
 
@@ -135,5 +157,11 @@ void displayHeapHelper(Heap h, int index, int level) {
  * @param h the Heap to be displayed
  */
 void displayHeap(Heap h) {
+    puts("Heap:");
+    for (int i = 0; i <= h->lastIndex + 1; i++) {
+      printf("%d ", h->node[i]);
+    }
+    puts("\n");
     displayHeapHelper(h, 0, 0);
+    puts("");
 }
