@@ -104,7 +104,6 @@ int deleteMin(Heap h) {
   return deletedElem;
 }
 
-
 Heap init(void);
 void displayHeapHelper(Heap h, int index, int level);
 void displayHeap(Heap h);
