@@ -157,7 +157,7 @@ void displayHeapHelper(Heap h, int index, int level) {
  */
 void displayHeap(Heap h) {
     puts("Heap:");
-    for (int i = 0; i <= h->lastIndex + 1; i++) {
+    for (int i = 0; i <= h->lastIndex; i++) {
       printf("%d ", h->node[i]);
     }
     puts("\n");
