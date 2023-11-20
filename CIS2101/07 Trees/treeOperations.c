@@ -146,7 +146,7 @@ void delete(Node *root, int target) {
     // SO, we swap the min((*trav)->RC) value with the node to delete
     if ((*trav)->LC != NULL && (*trav)->RC != NULL) {
       Node *min;
-      for (min = &(*trav)->RC; (*min)->RC != NULL; min = &(*min)->RC) {
+      for (min = &(*trav)->RC; (*min)->LC != NULL; min = &(*min)->LC) {
         // we are traversing until we reach the leaf node
       }
 
@@ -169,15 +169,9 @@ void delete(Node *root, int target) {
 
     // node to delete has one child
     // SO, we let parent point to that child and then free the deleted node
-    else if ((*trav)->LC != NULL) {
+    else {
       Node tmp = *trav;
-      *trav = (*trav)->LC;
-      free(tmp);
-    }
-
-    else if ((*trav)->RC != NULL) {
-      Node tmp = *trav;
-      *trav = (*trav)->RC;
+      *trav = (*trav)->LC != NULL ? (*trav)->LC : (*trav)->RC;
       free(tmp);
     }
   }
