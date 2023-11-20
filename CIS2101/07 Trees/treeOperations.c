@@ -16,6 +16,8 @@ void postOrder(Node node);
 int sum(Node root);
 bool isMember(Node root, int target);
 bool isMemberIterative(Node root, int target);
+int min(Node root);
+int max(Node root);
 
 int main(void) {
   Node tree = NULL;
@@ -35,6 +37,8 @@ int main(void) {
   printf("isMember(4) = %d\n", isMember(tree, 4));
   printf("isMember(3) = %d\n", isMember(tree, 3));
   printf("isMember(99) = %d\n", isMember(tree, 99));
+  printf("max() = %d\n", max(tree));
+  printf("min() = %d\n", min(tree));
 }
 
 Node createNode(int data) {
@@ -107,4 +111,20 @@ bool isMemberIterative(Node root, int target) {
   }
 
   return root == NULL ? false : true;
+}
+
+int min(Node root) {
+  if (root != NULL && root->LC == NULL) {
+    return root->elem;
+  }
+
+  return min(root->LC);
+}
+
+int max(Node root) {
+  if (root != NULL && root->RC == NULL) {
+    return root->elem;
+  }
+
+  return max(root->RC);
 }
