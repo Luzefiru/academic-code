@@ -18,6 +18,7 @@ bool isMember(Node root, int target);
 bool isMemberIterative(Node root, int target);
 int min(Node root);
 int max(Node root);
+void delete(Node *root, int target);
 
 int main(void) {
   Node tree = NULL;
@@ -39,6 +40,8 @@ int main(void) {
   printf("isMember(99) = %d\n", isMember(tree, 99));
   printf("max() = %d\n", max(tree));
   printf("min() = %d\n", min(tree));
+  delete (&tree, 2);
+  preOrder(tree);
 }
 
 Node createNode(int data) {
@@ -127,4 +130,55 @@ int max(Node root) {
   }
 
   return max(root->RC);
+}
+
+void delete(Node *root, int target) {
+  // first traverse to the node toDelete while keeping track of parent node
+  Node *trav;
+  for (trav = root; *trav != NULL && (*trav)->elem != target;) {
+    trav = (target < (*trav)->elem) ? &(*trav)->LC : &(*trav)->RC;
+  }
+
+  // trav is the node to delete
+  if (*trav != NULL) {
+
+    // node has two children
+    // SO, we swap the min((*trav)->RC) value with the node to delete
+    if ((*trav)->LC != NULL && (*trav)->RC != NULL) {
+      Node *min;
+      for (min = &(*trav)->RC; (*min)->RC != NULL; min = &(*min)->RC) {
+        // we are traversing until we reach the leaf node
+      }
+
+      // swap min value with node to delete
+      (*trav)->elem = (*min)->elem;
+
+      // free the min node
+      Node tmp = *min;
+      *min = NULL;
+      free(tmp);
+    }
+
+    // node to delete is a leaf node
+    // SO, just make parent point to NULL
+    else if ((*trav)->LC == NULL && (*trav)->RC == NULL) {
+      Node tmp = *trav;
+      *trav = NULL;
+      free(tmp);
+    }
+
+    // node to delete has one child
+    // SO, we let parent point to that child and then free the deleted node
+    else if ((*trav)->LC != NULL) {
+      Node tmp = *trav;
+      *trav = (*trav)->LC;
+      free(tmp);
+    }
+
+    else if ((*trav)->RC != NULL) {
+      Node tmp = *trav;
+      *trav = (*trav)->RC;
+      free(tmp);
+    }
+  }
 }
