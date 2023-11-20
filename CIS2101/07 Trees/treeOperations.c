@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,6 +14,8 @@ void preOrder(Node node);
 void inOrder(Node node);
 void postOrder(Node node);
 int sum(Node root);
+bool isMember(Node root, int target);
+bool isMemberIterative(Node root, int target);
 
 int main(void) {
   Node tree = NULL;
@@ -28,6 +31,10 @@ int main(void) {
   postOrder(tree);
   printf("\n");
   printf("Sum = %d\n", sum(tree));
+  printf("isMember(1) = %d\n", isMember(tree, 1));
+  printf("isMember(4) = %d\n", isMember(tree, 4));
+  printf("isMember(3) = %d\n", isMember(tree, 3));
+  printf("isMember(99) = %d\n", isMember(tree, 99));
 }
 
 Node createNode(int data) {
@@ -78,4 +85,26 @@ int sum(Node root) {
   }
 
   return root->elem + sum(root->LC) + sum(root->RC);
+}
+
+bool isMember(Node root, int target) {
+  if (root != NULL && target < root->elem) {
+    return isMember(root->LC, target);
+  } else if (root != NULL && target > root->elem) {
+    return isMember(root->RC, target);
+  } else {
+    return root == NULL ? false : true;
+  }
+}
+
+bool isMemberIterative(Node root, int target) {
+  while (root != NULL && root->elem != target) {
+    if (target < root->elem) {
+      root = root->LC;
+    } else {
+      root = root->RC;
+    }
+  }
+
+  return root == NULL ? false : true;
 }
