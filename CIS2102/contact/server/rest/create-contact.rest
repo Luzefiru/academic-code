@@ -1,4 +1,4 @@
-POST http://localhost:3001/api/contacts
+POST http://localhost:3000/contact
 Content-Type: application/json
 
 {
