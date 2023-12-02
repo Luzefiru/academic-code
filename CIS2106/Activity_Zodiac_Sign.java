@@ -1,3 +1,20 @@
+// Create a Java program that determines the zodiac sign based on the user's birth date.
+// 1. Write a main() method that prompts the user to enter their birth day and month.
+// Use the following logic to determine the zodiac sign:
+// Aries: March 21 - April 19
+// Taurus: April 20 - May 20
+// Gemini: May 21 - June 20
+// Cancer: June 21 - July 22
+// Leo: July 23 - August 22
+// Virgo: August 23 - September 22
+// Libra: September 23 - October 22
+// Scorpio: October 23 - November 21
+// Sagittarius: November 22 - December 21
+// Capricorn: December 22 - January 19
+// Aquarius: January 20 - February 18
+// Pisces: February 19 - March 20
+// Use if-else-if or switch statements to determine the zodiac sign based on the provided day and month.Optionally, you can use Scanner to get user input for day and month and ensure it is within the valid range.Finally, display the user's zodiac sign.
+
 import java.util.Scanner;
 
 public class Activity_Zodiac_Sign {
