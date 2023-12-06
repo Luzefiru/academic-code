@@ -17,7 +17,7 @@
 
 import java.util.Scanner;
 
-public class Activity_Zodiac_Sign {
+public class Activity6_de_Jesus {
   public static final String VALID_MONTHS = "January February March April May June July August September October November December";
 
   public static void main(String[] args) {
