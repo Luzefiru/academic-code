@@ -27,6 +27,11 @@ void insertLast(List *L, studRec newStudent);
 void insertSorted(List *L, studRec newStudent);
 void insertSortedUnique(List *L, studRec newStudent);
 void updateIdFirstOccurence(List *L, const char *targetId, const char *newId);
+void sortList(List *L);
+void deleteFirst(List *L);
+void deleteLast(List *L);
+void deleteAllOccurences(List *L, const char *targetID);
+bool isMember(List L, const char *targetID);
 
 int main(void) {
   List L;
@@ -44,6 +49,21 @@ int main(void) {
   insertSortedUnique(&L, (studRec){"99"});
   displayList(L);
   // [0]->[1]->[2]->[4]->[5]->[99]->NULL
+  updateIdFirstOccurence(&L, "99", "69");
+  insertFirst(&L, (studRec){"100"});
+  sortList(&L);
+  deleteFirst(&L);
+  deleteLast(&L);
+  displayList(L);
+  // [1]->[2]->[4]->[5]->[69]->NULL
+  insertSorted(&L, (studRec){"69"});
+  insertFirst(&L, (studRec){"69"});
+  deleteAllOccurences(&L, "69");
+  displayList(L);
+  printf("1 in List? %d\n", isMember(L, "1"));
+  printf("4 in List? %d\n", isMember(L, "4"));
+  printf("5 in List? %d\n", isMember(L, "5"));
+  printf("69 in List? %d\n", isMember(L, "69"));
 }
 
 void init(List *L) { *L = NULL; }
@@ -124,4 +144,65 @@ void updateIdFirstOccurence(List *L, const char *targetId, const char *newId) {
   if (*trav != NULL) {
     strcpy((*trav)->stud.ID, newId);
   }
+}
+
+void sortList(List *L) {
+  int max = 0, x;
+  List *trav;
+  for (trav = L; *trav != NULL; trav = &(*trav)->link) {
+    max++;
+  }
+
+  for (x = 0; x < max; x++) {
+    for (trav = L; (*trav)->link != NULL; trav = &(*trav)->link) {
+      if (atoi((*trav)->stud.ID) > atoi((*trav)->link->stud.ID)) {
+        char tmp[10];
+        strcpy(tmp, (*trav)->stud.ID);
+        strcpy((*trav)->stud.ID, (*trav)->link->stud.ID);
+        strcpy((*trav)->link->stud.ID, tmp);
+      }
+    }
+  }
+}
+
+void deleteFirst(List *L) {
+  if (*L != NULL) {
+    List tmp = *L;
+    *L = (*L)->link;
+  }
+}
+
+void deleteLast(List *L) {
+  List *trav;
+  for (trav = L; *trav != NULL && (*trav)->link != NULL;
+       trav = &(*trav)->link) {
+  }
+
+  if (*trav != NULL) {
+    List tmp = *trav;
+    *trav = NULL;
+    free(tmp);
+  }
+}
+
+void deleteAllOccurences(List *L, const char *targetID) {
+  List *trav;
+  for (trav = L; *trav != NULL;) {
+    if (strcmp((*trav)->stud.ID, targetID) == 0) {
+      List tmp = *trav;
+      *trav = tmp->link;
+      free(tmp);
+    } else {
+      trav = &(*trav)->link;
+    }
+  }
+}
+
+bool isMember(List L, const char *targetID) {
+  List trav;
+  for (trav = L; trav != NULL && strcmp(targetID, trav->stud.ID) != 0;
+       trav = trav->link) {
+  }
+
+  return trav == NULL ? false : true;
 }
