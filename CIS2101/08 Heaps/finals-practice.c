@@ -23,41 +23,36 @@ int main(void) {
 }
 
 void initHeap(Heap *h) {
-  Heap newHeap = malloc(sizeof(struct heap));
-  newHeap->size = 0;
-
-  *h = newHeap;
+  *h = (Heap)malloc(sizeof(struct heap));
+  (*h)->size = 0;
 }
 
 void insert(Heap h, int newElem) {
-  if (h->size < MAX) {
-    h->node[h->size++] = newElem;
-
-    int trav;
-    for (trav = h->size - 1; trav > 0; trav = (trav - 1) / 2) {
-      if (h->node[(trav - 1) / 2] < h->node[trav]) {
-        int tmp = h->node[trav];
-        h->node[trav] = h->node[(trav - 1) / 2];
-        h->node[(trav - 1) / 2] = tmp;
-      }
-    }
+  int current;
+  for (current = h->size;
+       current > 0 && h->node[(current - 1) / 2] < h->node[current];
+       current = (current - 1) / 2) {
+    int tmp = h->node[current];
+    h->node[current] = h->node[(current - 1) / 2];
+    h->node[(current - 1) / 2] = tmp;
   }
+  h->size++;
 }
 
 void heapify(Heap h, int i) {
   int largest = i;
-  int leftChild = i * 2 + 1;
-  int rightChild = i * 2 + 2;
+  int LC = i * 2 + 1;
+  int RC = i * 2 + 2;
 
-  if (leftChild < h->size && h->node[leftChild] > h->node[largest]) {
-    largest = leftChild;
+  if (LC < h->size - 1 && h->node[LC] > h->node[largest]) {
+    largest = LC;
   }
 
-  if (rightChild < h->size && h->node[rightChild] > h->node[largest]) {
-    largest = rightChild;
+  if (RC < h->size - 1 && h->node[RC] > h->node[largest]) {
+    largest = RC;
   }
 
-  if (i != largest) {
+  if (largest != i) {
     int tmp = h->node[i];
     h->node[i] = h->node[largest];
     h->node[largest] = tmp;
@@ -66,13 +61,13 @@ void heapify(Heap h, int i) {
 }
 
 void heapSort(Heap h) {
-  int x;
-  for (x = (h->size - 2) / 2; x >= 0; x--) {
-    heapify(h, x);
+  int trav;
+  for (trav = (h->size - 2) / 2; trav >= 0; trav--) {
+    heapify(h, trav);
   }
 
-  int heapSize = h->size;
-  for (x = 0; x < heapSize; x++) {
+  int originalSize = h->size;
+  for (trav = 0; trav < originalSize; trav++) {
     int tmp = h->node[0];
     h->node[0] = h->node[h->size - 1];
     h->node[h->size - 1] = tmp;
@@ -80,7 +75,7 @@ void heapSort(Heap h) {
     heapify(h, 0);
   }
 
-  h->size = heapSize;
+  h->size = originalSize;
 }
 
 /**
