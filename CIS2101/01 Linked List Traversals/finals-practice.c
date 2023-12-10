@@ -169,6 +169,7 @@ void deleteFirst(List *L) {
   if (*L != NULL) {
     List tmp = *L;
     *L = (*L)->link;
+    free(tmp);
   }
 }
 
