@@ -32,11 +32,9 @@ int main(void) {
   Graph G;
   init(G);
   addEdge(G, 1, 2);
-  addEdge(G, 2, 3);
-  addEdge(G, 3, 1);
-  addEdge(G, 3, 4);
-  addEdge(G, 4, 5);
-  addEdge(G, 5, 2);
+  addEdge(G, 2, 5);
+  addEdge(G, 1, 4);
+  addEdge(G, 4, 3);
   display(G);
   bfs(G, 1);
 }
