@@ -1,21 +1,31 @@
+import java.util.stream.Stream;
+
 public class Activity8_de_Jesus {
   public static void main(String[] args) {
     String word = "helloWorld";
-    System.out.println(String.format("Reverse of %s: %s", word, toReversed((word))));
-    System.out.println(String.format("Number of 'l' in %s: %s", word, getCharOccurences(word, 'l')));
-    System.out.println(String.format("Uppercase of %s: %s", word, toUpper((word))));
-    System.out.println(String.format("Lowercase of %s: %s", word, toLower((word))));
-    System.out
-        .println(String.format("A string array of %s with the delimiter 'll': ", word));
-    System.out.print("[ ");
-    for (String str : toStringArray(word, "ll")) {
-      System.out.print(str + " ");
-    }
-    System.out.println("]");
-    System.out.println(String.format("%s starts with 'hello'? %s", word, stringStartsWith(word, "hello")));
-    System.out.println(String.format("%s starts with '???'? %s", word, stringStartsWith(word, "???")));
-    System.out.println(String.format("%s ends with 'World'? %s", word, stringEndsWith(word, "World")));
-    System.out.println(String.format("%s ends '!!!' 'World'? %s", word, stringEndsWith(word, "!!!")));
+    // System.out.println(String.format("Reverse of %s: %s\n", word,
+    // toReversed(word)));
+    System.out.println(String.format("Number of 'l' in %s: %s\n", word, getCharOccurences(word, 'l')));
+    // System.out.println(String.format("Uppercase of %s: %s\n", word,
+    // toUpper(word)));
+    // System.out.println(String.format("Lowercase of %s: %s\n", word,
+    // toLower(word)));
+    // System.out
+    // .println(String.format("A string array of %s with the delimiter 'll': ",
+    // word));
+    // System.out.print("[ ");
+    // for (String str : toStringArray(word, "ll")) {
+    // System.out.print(str + " ");
+    // }
+    // System.out.println("]\n");
+    // System.out.println(String.format("%s starts with 'hello'? %s\n", word,
+    // stringStartsWith(word, "hello")));
+    // System.out.println(String.format("%s starts with '???'? %s\n", word,
+    // stringStartsWith(word, "???")));
+    // System.out.println(String.format("%s ends with 'World'? %s\n", word,
+    // stringEndsWith(word, "World")));
+    // System.out.println(String.format("%s ends '!!!' 'World'? %s\n", word,
+    // stringEndsWith(word, "!!!")));
   }
 
   // 1. Write a function that takes a string as input and returns the reversed
@@ -27,13 +37,7 @@ public class Activity8_de_Jesus {
   // 2. Create a function that counts the occurrences of a specific character in a
   // given string using the charAt() method.
   public static int getCharOccurences(String s, char toCount) {
-    int count = 0;
-    for (int i = 0; i < s.length(); i++) {
-      if (s.charAt(i) == toCount) {
-        count++;
-      }
-    }
-    return count;
+    return Stream.of(s.split("")).filter(ch -> ch.charAt(0) == toCount).toArray().length;
   }
 
   // 3. Write a function that converts a string to uppercase and lowercase using
