@@ -34,6 +34,7 @@ const userStorage = {
 
   logoutUser: () => {
     localStorage.removeItem('currentUser');
+    window.location.reload();
   },
 };
 

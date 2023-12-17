@@ -42,7 +42,7 @@ function LikePostButton({ id, likes }) {
 }
 
 LikePostButton.propTypes = {
-  id: propTypes.string.isRequired,
+  id: propTypes.number.isRequired,
   likes: propTypes.number.isRequired,
 };
 

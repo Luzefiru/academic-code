@@ -1,4 +1,4 @@
-import { CreatePostModal, AuthModal } from './index';
+import { CreatePostModal, AuthModal, LogoutButton } from './index';
 import { useState, useEffect } from 'react';
 import { userStorage } from '../utils';
 
@@ -35,6 +35,7 @@ function Navbar() {
       </div>
       <div className="flex gap-2 navbar-end md:gap-4">
         {currentUser ? <CreatePostModal /> : <AuthModal />}
+        <LogoutButton />
         <button className="btn btn-sm md:btn-md btn-square">
           <label className="swap swap-rotate">
             <input
