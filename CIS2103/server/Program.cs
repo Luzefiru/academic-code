@@ -101,11 +101,11 @@ app.MapPost("/blogs", async (User user, string Title, string Content, BlogDbCont
     return Results.Created($"/blogs/{newBlog.Id}", newBlog);
 });
 
-app.MapDelete("/blogs/{id}", async (int id, [FromBody] User user, BlogDbContext db) =>
+app.MapDelete("/blogs/{id}", async (int id, [FromQuery] int userId, BlogDbContext db) =>
 {
     if (await db.Blogs.FindAsync(id) is Blog blog)
     {
-        if (blog.AuthorId != user.Id)
+        if (blog.AuthorId != userId)
         {
             return Results.Unauthorized();
         }
