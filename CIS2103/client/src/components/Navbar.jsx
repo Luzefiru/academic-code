@@ -1,10 +1,12 @@
-import { CreatePostModal } from './index';
+import { CreatePostModal, AuthModal } from './index';
 import { useState, useEffect } from 'react';
+import { userStorage } from '../utils';
 
 function Navbar() {
   const [isDark, setisDark] = useState(
     JSON.parse(localStorage.getItem('isDark'))
   );
+  const currentUser = userStorage.getUser();
   useEffect(() => {
     localStorage.setItem('isDark', JSON.stringify(isDark));
   }, [isDark]);
@@ -32,7 +34,7 @@ function Navbar() {
         </a>
       </div>
       <div className="flex gap-2 navbar-end md:gap-4">
-        <CreatePostModal />
+        {currentUser ? <CreatePostModal /> : <AuthModal />}
         <button className="btn btn-sm md:btn-md btn-square">
           <label className="swap swap-rotate">
             <input

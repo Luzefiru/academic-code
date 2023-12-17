@@ -43,6 +43,7 @@ app.UseHttpsRedirection();
 // User & Auth Endpoints
 app.MapPost("/user/login", async (string UserName, string Password, UserDbContext db) =>
 {
+    Console.WriteLine("Hello");
     var user = await db.Users.FirstOrDefaultAsync(u => u.UserName == UserName && u.Password == Password);
 
     if (user != null)
