@@ -30,7 +30,7 @@ function Landing() {
                 onClick={() => {
                   navigate('/');
                 }}
-                className="text-xl font-semibold btn btn-primary"
+                className="text-xl font-semibold btn btn-warning"
               >
                 Let&apos;s Go!
               </button>
