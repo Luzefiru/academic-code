@@ -15,12 +15,12 @@ function Landing() {
           <div className="bg-opacity-40 hero-overlay"></div>
           <div className="text-center text-white hero-content">
             <div className="max-w-2xl">
-              <h1 className="mb-5 text-2xl font-bold lg:text-5xl">
+              <h1 className="mb-5 text-3xl font-bold md:text-5xl">
                 Anonymous Posting
                 <br />
                 Made Easy
               </h1>
-              <p className="mb-5">
+              <p className="mb-5 text-sm md:text-xl">
                 Inbound Relay is your one-stop-shop for anonymous posting. Share
                 your thoughts and opinions with the world in a fast-paced
                 message board. Create an account now and join hundreds of other
