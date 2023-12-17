@@ -19,7 +19,7 @@ function DeletePostModal({ id, title }) {
         window.location.reload();
       } catch (e) {
         console.error(e);
-        setError('Something went wrong with the server! Check the logs.');
+        setError('You do not own this post!');
       }
     };
     deletePost();
