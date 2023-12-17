@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432 # expose for external host connections
+    volumes:
+      - ./sql/:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Map init.sql to initialization directory
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
