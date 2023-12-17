@@ -60,7 +60,13 @@ function PostGrid() {
   return (
     <div className="grid gap-8 px-4 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
       {posts.map((p) => (
-        <Post key={p.id} id={p.id} title={p.title} content={p.content} />
+        <Post
+          key={p.id}
+          id={p.id}
+          title={p.title}
+          content={p.content}
+          likes={p.likes}
+        />
       ))}
     </div>
   );

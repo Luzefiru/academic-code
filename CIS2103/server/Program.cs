@@ -147,4 +147,27 @@ app.MapPut("/blogs/{id}", async (int id, User user, string Title, string Content
     return Results.Ok(blog);
 });
 
+app.MapPost("/blogs/{id}/like", async (int id, User user, BlogDbContext db) =>
+{
+    Console.WriteLine("Hello");
+
+    // Check if the user has any available role
+    if (user.Role != UserRole.Guest && user.Role != UserRole.Writer && user.Role != UserRole.Admin)
+    {
+        return Results.Unauthorized();
+    }
+    // Check if the blog post exists
+    var blog = await db.Blogs.FindAsync(id);
+    if (blog == null)
+    {
+        // If the blog post does not exist, return a 404 Not Found
+        return Results.NotFound($"Blog post with id {id} not found");
+    }
+    blog.Likes++;
+    blog.DatePosted = blog.DatePosted.ToUniversalTime();
+    db.Blogs.Update(blog);
+    await db.SaveChangesAsync();
+    return Results.Ok(blog);
+});
+
 app.Run();

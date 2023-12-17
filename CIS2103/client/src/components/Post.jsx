@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
-import { DeletePostModal, UpdatePostModal } from './index';
+import { DeletePostModal, UpdatePostModal, LikePostButton } from './index';
 
-function Post({ id, title, content }) {
+function Post({ id, title, content, likes }) {
   return (
     <div
       data-id={id}
@@ -13,6 +13,7 @@ function Post({ id, title, content }) {
         <div className="flex justify-end gap-4 mt-4">
           <DeletePostModal id={id} title={title} />
           <UpdatePostModal id={id} title={title} content={content} />
+          <LikePostButton id={id} likes={likes} />
         </div>
       </div>
     </div>
@@ -23,6 +24,7 @@ Post.propTypes = {
   id: propTypes.number.isRequired,
   title: propTypes.string.isRequired,
   content: propTypes.string.isRequired,
+  likes: propTypes.number.isRequired,
 };
 
 export default Post;

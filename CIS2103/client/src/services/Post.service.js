@@ -11,7 +11,9 @@ const mockUser = {
 const PostService = (() => {
   const getPosts = async () => {
     const { data } = await axios.get(baseUrl);
-    return data;
+    return data.sort((a, b) =>
+      a.likes < b.likes ? 1 : a.likes > b.likes ? -1 : 0
+    );
   };
 
   const createPost = async (obj) => {
@@ -35,7 +37,14 @@ const PostService = (() => {
     return data;
   };
 
-  return { getPosts, createPost, deletePost, updatePost };
+  const likePost = async (id) => {
+    const { data } = await axios.post(`${baseUrl}/${id}/like`, {
+      ...mockUser,
+    });
+    return data;
+  };
+
+  return { getPosts, createPost, deletePost, updatePost, likePost };
 })();
 
 export default PostService;

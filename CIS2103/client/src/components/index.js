@@ -5,3 +5,4 @@ export { default as Post } from './Post.jsx';
 export { default as CreatePostModal } from './CreatePostModal.jsx';
 export { default as DeletePostModal } from './DeletePostModal.jsx';
 export { default as UpdatePostModal } from './UpdatePostModal.jsx';
+export { default as LikePostButton } from './LikePostButton.jsx';
