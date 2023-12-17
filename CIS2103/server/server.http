@@ -1,6 +1,45 @@
 @server_HostAddress = http://localhost:5136
 
-GET {{server_HostAddress}}/weatherforecast/
-Accept: application/json
+@name=Get All Todo Items
+GET http://localhost:5136/todoitems
+
+###
+
+@name=Get Completed Todo Items
+GET http://localhost:5136/todoitems/complete
+
+###
+
+@name=Get Todo Item by ID
+GET http://localhost:5136/todoitems/1
+Content-Type: application/json
+
+###
+
+@name=Create Todo Item
+POST http://localhost:5136/todoitems
+Content-Type: application/json
+
+{
+  "name": "New Todo Item",
+  "isComplete": false
+}
+
+###
+
+@name=Update Todo Item by ID
+PUT http://localhost:5136/todoitems/1
+Content-Type: application/json
+
+{
+  "name": "Updated Todo Item",
+  "isComplete": true
+}
+
+###
+
+@name=Delete Todo Item by ID
+DELETE http://localhost:5136/todoitems/1
+Content-Type: application/json
 
 ###
