@@ -118,29 +118,32 @@ app.MapDelete("/blogs/{id}", async (int id, [FromQuery] int userId, BlogDbContex
     return Results.NotFound();
 });
 
-app.MapPost("/blogs/{id}/like", async (int id, User user, BlogDbContext db) =>
+app.MapPut("/blogs/{id}", async (int id, User user, string Title, string Content, BlogDbContext db) =>
 {
-    // Check if the user has any available role
-    if (user.Role != UserRole.Guest && user.Role != UserRole.Writer && user.Role != UserRole.Admin)
+    // Check if the user has writer or admin role
+    if (user.Role != UserRole.Writer && user.Role != UserRole.Admin)
     {
         return Results.Unauthorized();
     }
 
-    // Check if the blog post exists
     var blog = await db.Blogs.FindAsync(id);
+
     if (blog == null)
     {
-        // If the blog post does not exist, return a 404 Not Found
-        return Results.NotFound($"Blog post with id {id} not found");
+        return Results.NotFound();
     }
 
-    blog.Likes++;
-    blog.DatePosted = blog.DatePosted.ToUniversalTime();
+    // Check if the user is the author of the blog post
+    if (blog.AuthorId != user.Id)
+    {
+        return Results.Unauthorized();
+    }
 
-    db.Blogs.Update(blog);
+    blog.Title = Title;
+    blog.Content = Content;
+
     await db.SaveChangesAsync();
 
-    // Return success or appropriate response
     return Results.Ok(blog);
 });
 

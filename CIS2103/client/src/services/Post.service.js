@@ -28,7 +28,10 @@ const PostService = (() => {
   };
 
   const updatePost = async ({ id, title, content }) => {
-    const { data } = await axios.put(`${baseUrl}/${id}`, { title, content });
+    const args = '?' + new URLSearchParams({ title, content }).toString();
+    const { data } = await axios.put(`${baseUrl}/${id}` + args, {
+      ...mockUser,
+    });
     return data;
   };
 
