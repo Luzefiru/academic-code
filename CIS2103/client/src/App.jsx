@@ -1,13 +1,24 @@
 import './App.css';
-import { Navbar, Footer, PostGrid } from './components';
+import { Navbar, Footer, PostGrid, Landing } from './components';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+    <Router>
       <Navbar />
-      <PostGrid />
+      <Routes>
+        <Route
+          index
+          element={
+            <div className="App">
+              <PostGrid />
+            </div>
+          }
+        />
+        <Route path="home" element={<Landing />} />
+      </Routes>
       <Footer />
-    </div>
+    </Router>
   );
 }
 

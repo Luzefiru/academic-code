@@ -26,7 +26,7 @@ function PostGrid() {
 
   if (isError) {
     return (
-      <div className="grid gap-8 px-4 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
+      <div className="grid gap-8 px-4 mt-8 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
         <article className="col-span-3 prose text-center">
           <h1 className="text-error">Something went wrong!</h1>
           <p>
@@ -48,7 +48,7 @@ function PostGrid() {
 
   if (posts.length === 0) {
     return (
-      <div className="grid gap-8 px-4 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
+      <div className="grid gap-8 px-4 mt-8 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
         <article className="col-span-3 prose text-center">
           <h1 className="text-primary">No posts yet.</h1>
           <p>Create a new post by clicking the Create Post button!</p>
@@ -58,7 +58,7 @@ function PostGrid() {
   }
 
   return (
-    <div className="grid gap-8 px-4 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
+    <div className="grid gap-8 px-4 mt-8 mb-20 PostGrid place-items-center md-grid-cols-2 lg:grid-cols-3 md:px-8">
       {posts.map((p) => (
         <Post
           key={p.id}

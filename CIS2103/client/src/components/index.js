@@ -8,3 +8,4 @@ export { default as UpdatePostModal } from './UpdatePostModal.jsx';
 export { default as AuthModal } from './AuthModal.jsx';
 export { default as LikePostButton } from './LikePostButton.jsx';
 export { default as LogoutButton } from './LogoutButton.jsx';
+export { default as Landing } from './Landing.jsx';

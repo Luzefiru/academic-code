@@ -1,19 +1,27 @@
 import { CreatePostModal, AuthModal, LogoutButton } from './index';
 import { useState, useEffect } from 'react';
 import { userStorage } from '../utils';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+  const currentUser = userStorage.getUser();
+  const navigate = useNavigate();
+
   const [isDark, setisDark] = useState(
     JSON.parse(localStorage.getItem('isDark'))
   );
-  const currentUser = userStorage.getUser();
+
+  const handleRedirectToHome = () => {
+    navigate('/home');
+  };
+
   useEffect(() => {
     localStorage.setItem('isDark', JSON.stringify(isDark));
   }, [isDark]);
 
   return (
-    <div className="sticky top-0 z-50 px-4 mb-8 shadow-sm navbar bg-base-100">
-      <div className="navbar-start">
+    <div className="sticky top-0 z-50 px-4 shadow-sm navbar bg-base-100">
+      <div className="navbar-start" onClick={handleRedirectToHome}>
         <a className="flex items-center justify-center text-2xl btn btn-ghost">
           <svg
             className="md:w-6 md:h-6 w-8 h-8 pt-[0.125rem]"
