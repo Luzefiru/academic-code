@@ -34,7 +34,7 @@ function UpdatePostModal({ id, title, content }) {
         window.location.reload();
       } catch (e) {
         console.error(e);
-        setError('You do not own this post!');
+        setError('Something went wrong! Check the logs.');
       }
     };
     editPost();

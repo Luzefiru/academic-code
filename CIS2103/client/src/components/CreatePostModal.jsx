@@ -31,7 +31,7 @@ function CreatePostModal() {
         window.location.reload();
       } catch (e) {
         console.error(e);
-        setError('Something went wrong with the server! Check the logs.');
+        setError('Something went wrong! Check the logs.');
       }
     };
     createNewPost();
