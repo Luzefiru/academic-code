@@ -9,6 +9,12 @@ function PostGrid() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const likePost = (id) => {
+    setPosts((posts) =>
+      posts.map((p) => (p.id === id ? { ...p, likes: p.likes + 1 } : p))
+    );
+  };
+
   useEffect(() => {
     const fetchPostsFromBackend = async () => {
       try {
@@ -70,6 +76,7 @@ function PostGrid() {
           content={p.content}
           likes={p.likes}
           authorId={p.authorId}
+          likePost={likePost}
         />
       ))}
     </div>

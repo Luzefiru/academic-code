@@ -1,21 +1,6 @@
 import propTypes from 'prop-types';
-import { PostService } from '../services';
 
-function LikePostButton({ id, likes }) {
-  const handleLike = () => {
-    const likePost = async () => {
-      try {
-        const likedPost = await PostService.likePost(id);
-        window.alert(`Successfully liked ${likedPost.title}.`);
-        window.location.reload();
-      } catch (e) {
-        console.error(e);
-        window.alert(e);
-      }
-    };
-    likePost();
-  };
-
+function LikePostButton({ likes, handleLike }) {
   return (
     <div className="tooltip tooltip-success" data-tip={`${likes} likes`}>
       <button
@@ -42,8 +27,8 @@ function LikePostButton({ id, likes }) {
 }
 
 LikePostButton.propTypes = {
-  id: propTypes.number.isRequired,
   likes: propTypes.number.isRequired,
+  handleLike: propTypes.func.isRequired,
 };
 
 export default LikePostButton;
