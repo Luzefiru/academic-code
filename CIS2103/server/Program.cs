@@ -102,17 +102,17 @@ app.MapPost("/blogs", async (User user, string Title, string Content, BlogDbCont
     return Results.Created($"/blogs/{newBlog.Id}", newBlog);
 });
 
-app.MapDelete("/blogs/{id}", async (int id, [FromQuery] int userId, BlogDbContext db) =>
+app.MapDelete("/blogs/{id}", async (int id, [FromQuery] int userId, BlogDbContext blogDb, UserDbContext userDb) =>
 {
-    if (await db.Blogs.FindAsync(id) is Blog blog)
+    if (await blogDb.Blogs.FindAsync(id) is Blog blog && await userDb.Users.FindAsync(userId) is User user)
     {
-        if (blog.AuthorId != userId)
+        if (blog.AuthorId != user.Id && user.Role != UserRole.Admin)
         {
             return Results.Unauthorized();
         }
 
-        db.Blogs.Remove(blog);
-        await db.SaveChangesAsync();
+        blogDb.Blogs.Remove(blog);
+        await blogDb.SaveChangesAsync();
         return Results.NoContent();
     }
 

@@ -47,7 +47,7 @@ function Navbar() {
       </div>
       <div className="flex gap-2 navbar-end md:gap-4">
         {currentUser ? userCanPost ? <CreatePostModal /> : '' : <AuthModal />}
-        <LogoutButton />
+        {currentUser ? <LogoutButton /> : ''}
         <button className="btn btn-sm md:btn-md btn-square">
           <label className="swap swap-rotate">
             <input
