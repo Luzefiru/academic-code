@@ -2,7 +2,7 @@ import axios from 'axios';
 import { userStorage } from '../utils';
 const baseUrl = 'http://localhost:5136/user';
 
-const PostService = (() => {
+const UserService = (() => {
   const loginUser = async ({ username, password }) => {
     const args = '?' + new URLSearchParams({ username, password }).toString();
     const { data } = await axios.post(`${baseUrl}/login` + args);
@@ -18,4 +18,4 @@ const PostService = (() => {
   return { loginUser, logoutUser };
 })();
 
-export default PostService;
+export default UserService;
