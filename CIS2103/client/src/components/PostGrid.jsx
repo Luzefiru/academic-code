@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Post } from './index.js';
 import { PostService } from '../services';
+import { userStorage } from '../utils';
 
 function PostGrid() {
+  const currentUser = userStorage.getUser();
   const [posts, setPosts] = useState([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,10 +64,12 @@ function PostGrid() {
       {posts.map((p) => (
         <Post
           key={p.id}
+          currentUser={currentUser}
           id={p.id}
           title={p.title}
           content={p.content}
           likes={p.likes}
+          authorId={p.authorId}
         />
       ))}
     </div>

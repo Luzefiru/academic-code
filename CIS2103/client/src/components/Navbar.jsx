@@ -1,6 +1,6 @@
 import { CreatePostModal, AuthModal, LogoutButton } from './index';
 import { useState, useEffect } from 'react';
-import { userStorage } from '../utils';
+import { userStorage, RoleEnum } from '../utils';
 import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
@@ -10,6 +10,10 @@ function Navbar() {
   const [isDark, setisDark] = useState(
     JSON.parse(localStorage.getItem('isDark'))
   );
+
+  const userCanPost =
+    currentUser?.role === RoleEnum.WRITER ||
+    currentUser?.role === RoleEnum.ADMIN;
 
   const handleRedirectToHome = () => {
     navigate('/home');
@@ -42,7 +46,7 @@ function Navbar() {
         </a>
       </div>
       <div className="flex gap-2 navbar-end md:gap-4">
-        {currentUser ? <CreatePostModal /> : <AuthModal />}
+        {currentUser ? userCanPost ? <CreatePostModal /> : '' : <AuthModal />}
         <LogoutButton />
         <button className="btn btn-sm md:btn-md btn-square">
           <label className="swap swap-rotate">
