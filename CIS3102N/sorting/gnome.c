@@ -2,22 +2,13 @@
 #define LEN 5
 
 void printArray(int *, int);
+void gnomeSort(int *, int);
 
 int main(void) {
 
   int arr[] = {3, 2, 1, 0, -1};
 
-  int i = 1;
-  while (i < LEN) {
-    if (i != 0 && arr[i] < arr[i - 1]) {
-      int tmp = arr[i];
-      arr[i] = arr[i - 1];
-      arr[i - 1] = tmp;
-      i--;
-    } else {
-      i++;
-    }
-  }
+  gnomeSort(arr, 5);
 
   printArray(arr, LEN);
 
@@ -30,4 +21,18 @@ void printArray(int arr[], int len) {
     i < len - 1 ? printf("%d, ", arr[i]) : printf("%d", arr[i]);
   }
   printf("]\n");
+}
+
+void gnomeSort(int arr[], int size) {
+  int i = 1, tmp;
+  while (i < LEN) {
+    if (i == 0 || arr[i] > arr[i - 1]) {
+      i++;
+    } else {
+      int tmp = arr[i];
+      arr[i] = arr[i - 1];
+      arr[i - 1] = tmp;
+      i--;
+    }
+  }
 }
