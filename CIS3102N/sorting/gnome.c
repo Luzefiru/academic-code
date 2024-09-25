@@ -1,31 +1,17 @@
-#include <stdio.h>
-#define LEN 5
+#include "shared/utils.c"
 
-void printArray(int *, int);
 void gnomeSort(int *, int);
 
 int main(void) {
-
-  int arr[] = {3, 2, 1, 0, -1};
-
-  gnomeSort(arr, 5);
-
-  printArray(arr, LEN);
+  gnomeSort(arr, SIZE);
+  printArray(arr, SIZE);
 
   return 0;
 }
 
-void printArray(int arr[], int len) {
-  printf("[");
-  for (int i = 0; i < len; i++) {
-    i < len - 1 ? printf("%d, ", arr[i]) : printf("%d", arr[i]);
-  }
-  printf("]\n");
-}
-
 void gnomeSort(int arr[], int size) {
   int i = 1, tmp;
-  while (i < LEN) {
+  while (i < SIZE) {
     if (i == 0 || arr[i] > arr[i - 1]) {
       i++;
     } else {
