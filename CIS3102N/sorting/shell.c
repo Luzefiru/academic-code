@@ -15,7 +15,7 @@ void sort(int arr[], int size) {
 
     // i and j represent the offset (gap) multiplier
     for (i = 1; i * gap < size; i++) {
-      int toInsert = arr[i * gap];
+      toInsert = arr[i * gap];
 
       for (j = i; j > 0 && arr[(j - 1) * gap] > toInsert; j--) {
         arr[j * gap] = arr[(j - 1) * gap];
