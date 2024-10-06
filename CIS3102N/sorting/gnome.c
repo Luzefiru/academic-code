@@ -10,8 +10,7 @@ int main(void) {
 }
 
 void gnomeSort(int arr[], int size) {
-  int i = 1, tmp;
-  while (i < SIZE) {
+  for (int i = 0; i < size;) {
     if (i == 0 || arr[i] > arr[i - 1]) {
       i++;
     } else {
