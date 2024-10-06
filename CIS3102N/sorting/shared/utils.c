@@ -11,4 +11,4 @@ void printArray(int arr[], int len) {
   printf("]\n");
 }
 
-int arr[] = {3, 2, 1, 0, -1};
+int arr[] = {4, 3, 2, 1, 0};
