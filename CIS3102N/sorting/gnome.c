@@ -11,7 +11,7 @@ int main(void) {
 
 void gnomeSort(int arr[], int size) {
   for (int i = 0; i < size;) {
-    if (i == 0 || arr[i] > arr[i - 1]) {
+    if (i == 0 || arr[i] >= arr[i - 1]) {
       i++;
     } else {
       int tmp = arr[i];
