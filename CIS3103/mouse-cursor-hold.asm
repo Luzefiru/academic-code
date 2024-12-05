@@ -2,6 +2,14 @@
 .stack 200h 
  
 .data 
+    ; Color constants
+    RED     EQU     4Ch     ; Bright red background
+    BLUE    EQU     1Ch     ; Blue background
+    GREEN   EQU     2Ch     ; Green background
+    
+    ; Current selected color
+    CurrentColor db RED     ; Default to Red
+    
     ; Mouse interrupt return values 
     mouse_x     dw ?       ; Current mouse X coordinate 
     mouse_y     dw ?       ; Current mouse Y coordinate 
@@ -34,6 +42,50 @@ main PROC
     int 33h 
  
 main_loop: 
+    ; Check for keyboard input 
+    mov ah, 1 
+    int 16h 
+    jz no_key_pressed 
+ 
+    ; Read the key 
+    mov ah, 0 
+    int 16h 
+ 
+    ; Check color keys 
+    cmp al, '1' 
+    je set_red 
+    cmp al, '2' 
+    je set_blue
+    cmp al, '3' 
+    je set_green 
+    cmp al, 27   ; ESC key 
+    je exit_program 
+ 
+    jmp main_loop 
+ 
+set_red: 
+    mov CurrentColor, RED 
+    jmp main_loop 
+ 
+set_blue: 
+    mov CurrentColor, BLUE 
+    jmp main_loop 
+
+set_green: 
+    mov CurrentColor, GREEN 
+    jmp main_loop 
+
+no_mouse: 
+    ; Display error message if no mouse 
+    mov ah, 9 
+    mov dx, offset no_mouse_msg 
+    int 21h 
+ 
+    ; Return to DOS 
+    mov ax, 4C01h 
+    int 21h 
+
+no_key_pressed: 
     ; Get mouse position and status 
     mov ax, 3   ; Sub-function 3: Get mouse position and button status 
     int 33h 
@@ -42,12 +94,11 @@ main_loop:
     test bx, 1
     jnz start_drawing
     mov drawing, 0  ; Not drawing if left button not pressed
-    jmp check_pos
+    jmp main_loop
 
 start_drawing:
     mov drawing, 1  ; Set drawing flag
 
-check_pos:
     ; Convert mouse coordinates to screen position 
     ; CX is divided by 8 for X, DX is divided by 8 for Y 
     push cx
@@ -70,29 +121,21 @@ check_pos:
  
     ; Check if we should draw 
     cmp drawing, 1
-    jne skip_draw
+    jne main_loop
 
     ; Draw color (preserve character, change attribute)
     mov al, es:[di]        ; Keep original character
     mov byte ptr es:[di], al      ; Restore original character
-    mov byte ptr es:[di+1], 4Ch   ; Set color to bright red background 
+    mov al, CurrentColor 
+    mov byte ptr es:[di+1], al   ; Set color from CurrentColor 
 
-skip_draw:
     ; Restore original coordinates 
     pop dx
     pop cx
 
-    ; Check for ESC key to exit 
-    mov ah, 1   ; Check keyboard status 
-    int 16h 
-    jz main_loop  ; No key pressed, continue 
+    jmp main_loop 
  
-    ; Check if ESC was pressed 
-    mov ah, 0   ; Read key 
-    int 16h 
-    cmp al, 27  ; ESC key 
-    jne main_loop 
- 
+exit_program: 
     ; Restore original video mode 
     mov ah, 0 
     mov al, 3h 
@@ -100,16 +143,6 @@ skip_draw:
  
     ; Return to DOS 
     mov ax, 4C00h 
-    int 21h 
- 
-no_mouse: 
-    ; Display error message if no mouse 
-    mov ah, 9 
-    mov dx, offset no_mouse_msg 
-    int 21h 
- 
-    ; Return to DOS 
-    mov ax, 4C01h 
     int 21h 
  
 no_mouse_msg db "Mouse not detected.$" 
